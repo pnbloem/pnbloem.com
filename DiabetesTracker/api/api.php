@@ -8,18 +8,18 @@
 			case 'submitMeasurement':
 				if(isset($_POST['type']) && isset($_POST['time']) 
 					&& isset($_POST['level']) && isset($_POST['insulin_type']) 
-					&& isset($_POST['insulin_amt']) && isset($_POST['userid'])){
+					&& isset($_POST['insulin_amt']) && isset($_SESSION['USERID'])){
 						return submitMeasurement($_POST['type'], $_POST['time'],
-							$_POST['level'], $_POST['insulin_type'], $_POST['insulin_amt'], $_POST['userid'], $userLoggedIn);
+							$_POST['level'], $_POST['insulin_type'], $_POST['insulin_amt'], $_SESSION['USERID'], $userLoggedIn);
 				} else
 					echo 'Some fields not set.';
 					
 			case 'editMeasurement':
 				if(isset($_POST['type']) && isset($_POST['time']) 
 					&& isset($_POST['level']) && isset($_POST['insulin_type']) 
-					&& isset($_POST['insulin_amt']) && isset($_POST['meas_id'])){
+					&& isset($_POST['insulin_amt']) && isset($_POST['meas_id']) && isset($_SESSION['USERID'])){
 						return editMeasurement($_POST['type'], $_POST['time'],
-							$_POST['level'], $_POST['insulin_type'], $_POST['insulin_amt'], $_POST['meas_id']);
+							$_POST['level'], $_POST['insulin_type'], $_POST['insulin_amt'], $_POST['meas_id'], $_SESSION['USERID']);
 				} else
 					echo 'Some fields not set.';
 					
@@ -78,16 +78,15 @@
 	}
 	
 	//Take in measurement info and edit the selected measurement
-	function editMeasurement($type, $time, $level, $insulin_type, $insulin_amt, $meas_id){
+	function editMeasurement($type, $time, $level, $insulin_type, $insulin_amt, $meas_id, $userid){
 		$response = array();
 		$query = "UPDATE measurements
 				  SET CheckCategory='{$type}',
 				  	  Timestamp='{$time}',
 				  	  GlucoseLevel={$level},
 				  	  InsulinType='{$insulin_type}',
-				  	  InsulinAmt={$insulin_amt},
-				  WHERE MeasID={$meas_id} AND
-				  	    UserID={$userid}";
+				  	  InsulinAmt={$insulin_amt}
+				  WHERE MeasID={$meas_id} AND UserID={$userid}";
 		if(mysql_query($query)){
 			$responseQuery = "SELECT * FROM measurements WHERE MeasID={$meas_id} AND UserID={$userid}";
 			if($resp = mysql_query($responseQuery)){
@@ -129,7 +128,7 @@
 	//Delete a measurement from the database
 	function deleteMeasurement($meas_id, $userid){
 		$response = array();
-		$query = "DELETE FROM measurements WHERE MeasID = {$meas_id} AND UserID={$userid}";
+		$query = "DELETE FROM measurements WHERE MeasID={$meas_id} AND UserID={$userid}";
 		if(mysql_query($query)){
 			$response["status"] = "Success";
 			$response["deleted_id"] = $meas_id;
