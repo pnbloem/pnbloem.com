@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>100 Lines - 011</title>
+	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
+	<link href="css/100lines.css" rel="stylesheet" type="text/css">
+	<!--
+		Copyright - 2014: Paul Bloem (pnbloem@gmail.com)
+	-->
+	<style>
+		* { margin: 0; padding: 0;}
+		body, html 
+		{ 
+			height:100%; 
+			background-color:#000;
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id='return-link'><a href='index.html'>gallery</a></div>
+	<canvas id='c'></canvas>	
+	<script>
+		var angleDivs = 200;
+		var variable = 300;
+		var c = document.getElementById("c");
+		var ctx = c.getContext("2d");
+		var x = window.innerWidth, y = window.innerHeight;
+		var x1 = Math.floor(x/2), y1 = Math.floor(y/2);
+		var mouseY = 0, mouseX = 0;
+		c.width = x;
+		c.height = y;
+		ctx.lineWidth = 2;
+		function animate() {			
+			//Update
+			//Clear 
+			ctx.clearRect(0, 0, c.width, c.height);
+			
+			//Draw stuff	
+			ctx.save();
+			ctx.translate(x1, y1);	
+			g = Math.floor((mouseX / x) * 255);	
+			ctx.strokeStyle = 'rgba(255,' + g + ',0,1)';
+			ctx.beginPath();
+			for (var i = 0; i < angleDivs; i++){
+				ctx.rotate(2* Math.PI / angleDivs);
+				ctx.moveTo(0, 0);
+				ctx.lineTo(0, Math.floor((Math.random() * mouseY) + ((y/2) - mouseY)));
+			}
+			ctx.stroke();
+			
+			ctx.restore();
+			//Request new frame
+			window.setTimeout(animate, 100);
+		}
+		animate();
+		document.onmousemove = function(e){
+			mouseY = e.offsetY;
+			mouseX = e.offsetX;
+		};
+		
+	</script>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-44862606-1', 'pnbloem.com');
+	ga('send', 'pageview');
+</script>
+</body>
+</html>

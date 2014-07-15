@@ -1,0 +1,143 @@
+html{
+	background-color:#eee;
+}
+body{
+	font-family: "RobotoDraft",Helvetica,Arial,sans-serif;
+	background-color:#FFFFFF;
+	padding:0px;
+	margin:0px;
+}
+div.ui-bar{
+	text-align: center;
+}
+
+body{
+    font-size:.8em;
+}
+
+#trackerWrap{
+    position:relative;
+    /* width:770px; */
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#eee;
+    top:0px;
+    height:100%;
+}
+
+tr.header{
+    background-color:#12375C;
+    color:white;
+    font-size:1.0em;
+    font-weight:bold;
+    text-align:center;
+}
+
+#measurementsList{
+    margin:10px;
+    margin-left:0px;
+    border-spacing:0px;
+    border:1px solid black;
+    width:100%;
+}
+#measurementsList tr{
+    height:30px;
+}
+.measurement:hover{
+    background-color:#DCE1E6;
+    border:0px;
+    padding:0px;
+    border:1px solid black;
+}
+.edit_measurement{
+    background-color:#DCE1E6;
+    border:0px;
+    padding:0px;
+    border:1px solid black;
+}
+#measurementsList td{
+    padding-left:10px;
+    padding-right:10px;
+    margin:0px;
+}
+#measurementsList tr.edit_measurement{
+    display:none;
+}
+
+td.good{
+    background-color:#E7FFE7;
+}
+td.closeLow{
+    background-color:#E7E7FF;
+}
+td.closeHigh{
+    background-color:#FFFFD8;
+}
+td.bad{
+    background-color:#FFE7E7;
+}
+tr.measurement td{
+    text-align:center;
+}
+td.checkcategory{
+    text-align:center;
+    width:120px;
+}
+td.timestamp{
+    width:150px;
+}
+td.glucoselevel{
+    width:50px;
+}
+td.insulintype{
+    width:80px;
+}
+td.insulinamt{
+    width:50px;
+}
+td.button{
+    width:60px;
+}
+
+input.edit_field{
+    border:1px solid #12375C;
+}
+input#time{
+    width:140px;
+}
+input#level{
+    width:90px;
+}
+input#insulin_type{
+    width:80px;
+}
+input#insulin_amt{
+    width:40px;
+}
+    
+#moreRowsButton{
+    text-align:center;
+    background-color:#B8C3CE;
+    border-top:1px solid black;
+    font-weight:bold;
+}
+#moreRowsButton:hover{
+    cursor:pointer;
+}
+
+#chartWrap{
+	display:inline-block;
+    background-color:white;
+    padding:15px 10px 15px 10px;
+}
+#chart{
+    margin:auto;
+    width:730px;
+    height:200px;
+}
+#overview{
+    margin:auto;
+    width:730px;
+    height:50px;
+    margin-top:10px;
+}

@@ -1,0 +1,147 @@
+<!-- Define element -->
+<polymer-element name="new-measurement-form" attributes="formType formTime formLevel insulinType insulinAmt userid">
+	<template>
+		<style>
+			#newMeasForm{
+			    background-color:#B8C3CE;
+			    border:1px solid black;
+			    height:auto;
+			    overflow:auto;
+			    margin-top:10px;
+			    vertical-align:middle;
+			}
+			
+			div.formfield{
+			    float:left;
+			    margin:10px 0px 10px 20px;
+			    text-align:center;
+			    display:block;
+			}
+			
+			#typewrap{	
+			    text-align:center;
+			}
+			#newtime{
+			    width:140px;
+			}
+			#newlevel{
+			    width:90px;
+			}
+			#newinsulin_type{
+			    width:80px;
+			}
+			#newinsulin_amt{
+			    width:40px;
+			}
+			#submitwrap{
+			    text-align:center;
+			    line-height:50px;
+			}
+		</style>
+		<div>
+			<paper-input floatingLabel style="width:80px" label="Type" id="type" value="{{formType}}"></paper-input>
+			<paper-input floatingLabel style="width:150px" label="Time" id="newtime" value="{{formTime}}"></paper-input>
+			<paper-input floatingLabel style="width:80px" label="Level (mg/dL)" validate="^[0-9]*$" id="newlevel" value="{{formLevel}}" type="tel"></paper-input>
+			<paper-input floatingLabel style="width:80px" label="Insulin Type" id="newinsulin_type" value="{{insulinType}}"></paper-input>
+			<paper-input floatingLabel style="width:80px" label="Units" validate="^[0-9]*$" id="newinsulin_amt" value="{{insulinAmt}}" type="tel"></paper-input>
+			<br/>
+			<paper-button raisedButton id="submitMeasurement" label="Submit" on-tap="{{formSubmit}}"></paper-button>
+			<div style='clear:both;'></div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			formType: guessType((new Date()).getHours()),
+			formTime: getCurrentDateTime(),
+			formLevel: "",
+			insulinType: guessInsulinType((new Date()).getHours()),
+			insulinAmt: guessInsulinAmt((new Date()).getHours()),
+			userid: "",
+			formTimeChanged: function(){
+				var timeSplit = this.formTime.split(/ |:/);
+				if (timeSplit.length > 2){
+					this.formType = guessType(parseInt(timeSplit[1]));
+					this.insulinType = guessInsulinType(parseInt(timeSplit[1]));
+					this.insulinAmt = guessInsulinAmt(parseInt(timeSplit[1]));
+				}
+			},
+			formSubmit: function() {
+				if (this.formType!=="" && this.formTime!=="" 
+						&& this.formLevel!=="" && this.insulinType!==""
+						&& this.insulinAmt!=="" && this.userid!=="") {
+					$.ajax({
+						type: "POST",
+						url: "api/api.php",
+						data: {
+							method: 		"submitMeasurement", 
+							type: 			this.formType,
+							time: 			this.formTime,
+							level:			this.formLevel,
+							insulin_type:	this.insulinType,
+							insulin_amt:	this.insulinAmt,
+							userid: 		this.userid,
+						},
+						datatype: 'xml',
+						success: function(data) {
+							this.formTime = "";
+							this.formLevel = "";
+							this.insulinType = "";
+							this.insulinAmt = "";
+							var response = JSON.parse(data);
+							if(response['status'] == "Success"){
+								addMeasurementToList(response['meas'], 0, response['loggedIn']);
+								refreshItems();
+								startRecs++;
+								alert("Measurement Added");
+                                toggleDialog("dialog-new");
+							} else {
+								alert(response['status']);
+							}
+						}
+					});
+				} else {
+					alert("Could not save measurement. Please try again.");
+				}
+			}
+		});
+		function getCurrentDateTime() {
+				//Set date/time input to current date and time for ease of use.
+				var currentTime = new Date();
+				var year = currentTime.getFullYear();
+				var month = currentTime.getMonth() + 1;
+				if(month < 10) month = "0" + month;
+				var date = currentTime.getDate();
+				if(date < 10) date = "0" + date;
+				var hour = currentTime.getHours();
+				if(hour < 10) hour = "0" + hour;	
+				var minute = currentTime.getMinutes();
+				if(minute < 10) minute = "0" + minute;
+				return "" + year+"-"+month+"-"+date+" "+hour+":"+minute+":00";
+		};
+		function guessType(hour){
+				if((hour < 4) || (hour > 21)){
+					return "Before Bed";
+				} else {
+					return "Before Meal";
+				}
+			};
+		function guessInsulinType(hour){
+				if((hour < 4) || (hour > 21)){
+					return "Levemir";
+				} else {
+					return "Humalog";
+				} 
+			};
+		function guessInsulinAmt(hour){
+				if((hour < 4) || (hour > 21)){
+					return 15;
+				} else if((hour >= 4) && (hour < 11)){
+					return 3;
+				} else if((hour >= 11) && (hour < 16)){
+					return 6;
+				} else if((hour >= 16) && (hour <= 21)){
+					return 8;
+				}
+			};
+	</script>
+</polymer-element>

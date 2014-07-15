@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>100 Lines - 007</title>
+	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
+	<link href="css/100lines.css" rel="stylesheet" type="text/css">
+	<!--
+		Copyright - 2014: Paul Bloem (pnbloem@gmail.com)
+	-->
+	<style>
+		* { margin: 0; padding: 0;}
+		body, html 
+		{ 
+			height:100%; 
+			background-color:#00BFFF;
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id='return-link'><a href='index.html'>gallery</a></div>
+	<canvas id='c'></canvas>
+</body>
+<script>
+	var c = document.getElementById("c"), ctx = c.getContext("2d"), w = window.innerWidth, 
+		h = window.innerHeight, s = 100, r = 20, l = 10, lineColor = "Tomato", x = Math.floor(w/s) - 1,
+		y = Math.floor(h/s) - 1, pts = [], currPt = 0;
+	c.width = window.innerWidth - 5;
+	c.height = window.innerHeight - 5;
+	function goToNext(){
+		var potentialMoves = validMoves(currPt);
+		if (potentialMoves.length !== 0) {
+			var nextPt = potentialMoves[Math.floor(Math.random() * potentialMoves.length)];
+			drawTrace(currPt, nextPt);
+			pts[nextPt] = 1;
+			currPt = nextPt;
+			setTimeout(goToNext, 50);
+		}
+	}
+	function drawTrace(ptStart, ptEnd) {
+		var xpos1 = (s * ((ptStart % x) + 1));
+		var ypos1 = (s * (Math.floor(ptStart / x) + 1));
+		var xpos2 = (s * ((ptEnd % x) + 1));
+		var ypos2 = (s * (Math.floor(ptEnd / x) + 1));
+		ctx.beginPath();
+		ctx.lineWidth = l;
+		ctx.moveTo(xpos1, ypos1);
+		ctx.lineTo(xpos2, ypos2);
+		ctx.strokeStyle = lineColor;
+		ctx.stroke();
+		ctx.closePath();
+		drawPoint(ptEnd, r, lineColor);
+	}	
+	function drawPoint(i, radius, color) {
+		var centerX = (s * ((i % x) + 1)), centerY = (s * (Math.floor(i / x) + 1));
+		ctx.beginPath();
+		ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+		ctx.fillStyle = color;
+		ctx.strokeStyle = "Black";
+		ctx.fill();
+		ctx.lineWidth = 5;
+		ctx.stroke();
+		ctx.closePath();
+	}
+	function validMoves(pt){
+		var moves = [];
+		if(!(pt < x) && (pts[pt - x] === 0)) {
+			moves[moves.length] = (pt - x);
+		}
+		if(((pt % x) !== 0) && (pts[pt - 1] === 0)){
+			moves[moves.length] = (pt - 1);
+		}
+		if(((pt % x) !== (x - 1)) && (pts[pt + 1] === 0)){
+			moves[moves.length] = (pt + 1);
+		}
+		if((pt < ((x * y) - x)) && (pts[pt + x] === 0)){
+			moves[moves.length] = (pt + x);
+		}
+		return moves;
+	}
+	for (var i = 0; i < (x*y); i++){
+		var color = "Yellow";
+		drawPoint(i, r, color); 
+	}	
+	function start() {
+		ctx.clearRect(0,0,c.width, c.height);
+		currPt = Math.floor(Math.random() * (x*y));
+		for (var i = 0; i < (x*y); i++){
+			pts[i] = (i === currPt) ? 1 : 0;
+			var color = "Yellow";
+			drawPoint(i, r, color); 
+		}
+		drawPoint(currPt, r, lineColor);	
+		goToNext();
+	}
+	document.onclick = start;
+</script>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-44862606-1', 'pnbloem.com');
+	ga('send', 'pageview');
+</script>
+</html>

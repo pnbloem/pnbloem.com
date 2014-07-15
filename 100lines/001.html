@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>100 Lines - 001</title>
+	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">	
+	<link href="http://fonts.googleapis.com/css?family=Raleway:200,700" rel="stylesheet" type="text/css">
+	<link href="css/100lines.css" rel="stylesheet" type="text/css">
+	<!--
+		Copyright - 2014: Paul Bloem (pnbloem@gmail.com)
+	-->
+<style>
+	body
+	{
+		margin:0px;
+	}
+	div.box
+	{
+		height:30px;
+		width:30px;
+		float:left;
+		margin:1px;
+	}	
+</style>
+<script>
+	var r = 0;
+	var g = 0;
+	var b = 0;
+	var timeout = null;
+	function createNewBox() {
+		var newBox = document.createElement("div");
+		newBox.setAttribute("class", "box");
+		changeColor();
+		var style = "background-color:rgba(" + r + "," + g + "," + b + ",1);";
+		newBox.setAttribute("style", style);
+		document.body.appendChild(newBox);
+		timeout = setTimeout(createNewBox, 50);
+	}
+	function changeColor() {
+		r = Math.floor(Math.random() * 255);
+		g = Math.floor(Math.random() * 255);
+		b = Math.floor(Math.random() * 255);
+	}
+	function startStop() {
+		if (timeout !== null) {
+			clearTimeout(timeout);
+			timeout = null;
+		} else {
+			setTimeout(createNewBox, 50);
+		}
+	}
+	document.onclick = startStop;
+</script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-44862606-1', 'pnbloem.com');
+	  ga('send', 'pageview');
+	</script>
+</head>
+<body>
+	<div id='return-link'><a href='index.html'>gallery</a></div>
+</body>
+</html>

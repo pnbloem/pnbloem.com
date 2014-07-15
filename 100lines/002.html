@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>100 Lines - 002</title>
+	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
+	<link href="css/100lines.css" rel="stylesheet" type="text/css">
+	<!--
+		Copyright - 2014: Paul Bloem (pnbloem@gmail.com)
+	-->
+<style>
+	body
+	{
+		margin:0px;
+	}
+	div#spinner
+	{
+		height:300px;
+		width:300px;
+		float:left;
+		margin:200px 300px 300px 300px;
+	}	
+</style>
+<script>
+	var timeout = null;
+	var delay = 15;
+	var rgb = [0, 0, 0];
+	var sign = [1, 1, 1];
+	var rotation = 0;
+	function animate() {
+		rotation = (rotation + 1) % 360;
+		var spinner = document.getElementById("spinner");
+		var style = "transform:rotate("+rotation+"deg);-ms-transform:rotate("+rotation+"deg); -webkit-transform:rotate("+rotation+"deg);";
+		for (var i = 0; i < 3; i++) {
+			var add = Math.floor(Math.random() * 10);
+			if (sign[i] === 1 && (add + rgb[i]) > 255){
+				sign[i] = -1;
+				rgb[i] = rgb[i] - add;
+			} else if (sign[i] === -1 && (rgb[i] - add) < 0){
+				sign[i] = 1;
+				rgb[i] = rgb[i] + add;
+			} else {
+				rgb[i] = rgb[i] + (sign[i] * add);
+			}
+		}
+		style = style + "background-color:rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ",1);";
+		spinner.setAttribute("style", style);
+		timeout = setTimeout(animate, delay);
+	}
+	function startStop() {
+		if (timeout !== null) {
+			clearTimeout(timeout);
+			timeout = null;
+		} else {
+			setTimeout(animate, delay);
+		}
+	}
+	document.onclick = startStop;
+</script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-44862606-1', 'pnbloem.com');
+	  ga('send', 'pageview');
+	</script>
+</head>
+<body>
+	<div id='return-link'><a href='index.html'>gallery</a></div>
+	<div id='spinner'></div>
+</body>
+</html>

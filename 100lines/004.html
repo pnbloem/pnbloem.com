@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>100 Lines - 004</title>
+	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
+	<link href="css/100lines.css" rel="stylesheet" type="text/css">
+	<!--
+		Copyright - 2014: Paul Bloem (pnbloem@gmail.com)
+	-->
+<style>
+	body
+	{
+		margin:0px;
+		background-color:black;
+		overflow:hidden;
+	}	
+	.rhombus
+	{
+		transform: rotate(45deg) skew(20deg, 20deg);
+		-ms-transform: rotate(45deg) skew(20deg, 20deg);
+		-webkit-transform: rotate(45deg) skew(20deg, 20deg);
+		position:absolute;	
+	}
+</style>
+<script>
+	var timeout = null;
+	var delay = 80, rhombs = [], w = window.innerWidth,
+		h = window.innerHeight, count = 40;
+	function animate() {
+		for (var i = 0; i < rhombs.length; i++) {
+			var x = rhombs[i];
+			if (parseInt(x.style.left) > w) {
+				x.style.left = "-200px"
+				x.style.top = Math.floor((h/(count)) * i) + "px";
+			} else {
+				var newLeft = parseInt(x.style.left) + Math.floor(Math.random() * 15) + i
+				x.style.left = newLeft + "px";
+				var r = Math.floor(Math.random() * 255);
+				var g = Math.floor(Math.random() * 255);
+				var b = Math.floor(Math.random() * 255);
+				x.style.backgroundColor = ("rgba("+r+","+g+","+b+",.7)");
+			}
+		}
+		timeout = setTimeout(animate, delay);
+	}
+	function start() {
+		for (var i = 0; i < count; i++) {
+			rhombs[i] = document.createElement("div");
+			rhombs[i].setAttribute("class", "rhombus");
+			rhombs[i].style.height = (Math.floor(Math.random() * 400) + 40) + "px";
+			rhombs[i].style.width = (Math.floor(Math.random() * 400) + 40) + "px";
+			rhombs[i].style.left = Math.floor(Math.random() * w) + "px";
+			rhombs[i].style.top = Math.floor((h/(count)) * i) + "px";
+			document.body.appendChild(rhombs[i]);
+		}
+		document.onclick = startStop;
+		startStop();
+	}
+	function startStop() {
+		if (timeout !== null) {
+			clearTimeout(timeout);
+			timeout = null;
+		} else {
+			timeout = setTimeout(animate, delay);
+		}
+	}
+	document.onclick = start;
+</script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-44862606-1', 'pnbloem.com');
+	  ga('send', 'pageview');
+	</script>
+</head>
+<body>
+	<div id='return-link'><a href='index.html'>gallery</a></div>
+</body>
+</html>

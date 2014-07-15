@@ -1,0 +1,44 @@
+<!-- Define element -->
+<polymer-element name="stat-box" attributes="week month threeMonth allTime">
+	<template>
+		<style>
+		#statBox{
+		    max-width:750px;
+		    height:60px;
+		    line-height:30px;	
+		    font-size:1.0em;
+		    font-weight:bold;
+		    margin:0 auto 10px auto;
+		    text-align:center;
+		    background-color:white;
+		}		
+		#averageLevel{
+		    padding-left:0px;
+		}
+		#threeMonthAvg{
+		    padding-left:20px;
+		}
+		#oneMonthAvg{
+		    padding-left:0px;
+		}
+		#oneWeekAvg{
+		    padding-left:20px;
+		}
+	</style>
+		<div id='statBox'>
+			<span id='averageLevel'>Overall: {{allTime}} mg/dL</span>
+			<span id='threeMonthAvg'>3 Months: {{threeMonth}} mg/dL</span><br />							
+			<span id='oneMonthAvg'>1 Month: {{month}} mg/dL</span>
+			<span id='oneWeekAvg'>1 Week: {{week}} mg/dL</span>
+        	<paper-shadow z="1"></paper-shadow>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			week: 0,
+			month: 0,
+			threeMonth: 0,
+			allTime: 0
+		});
+	</script>
+</polymer-element>

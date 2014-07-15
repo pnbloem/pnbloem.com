@@ -1,0 +1,15 @@
+div#return-link
+{
+	font-family: Raleway, sans-serif;
+	color:black;
+	background-color:rgba(255,255,255,0.7);
+	position:fixed;
+	z-index:1000;
+	left:0px;
+	top:0px;
+	padding:5px;
+}
+div#return-link a
+{
+	color:#666;
+}
