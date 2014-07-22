@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>100 Lines - 014</title>	
+	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
+	<link href="css/100lines.css" rel="stylesheet" type="text/css">
+	<!--
+		Copyright - 2014: Paul Bloem (pnbloem@gmail.com)
+	-->
+	<style>
+		* { margin: 0; padding: 0;}
+		body, html 
+		{ 
+			height:100%; 
+			background-color:#444;
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id='return-link'><a href='index.html'>gallery</a></div>
+	<canvas id='c'></canvas>	
+	<script>
+		var c = document.getElementById("c"), pts = [],
+			ctx = c.getContext("2d"), w = window.innerWidth, h = window.innerHeight;
+		c.width = w;
+		c.height = h;
+		var curve = {c1x: 0, c1y:0, c2x: w, c2y: h, ex: w/2, ey: h/2};
+		var rgb = [0, 0, 0];
+	var sign = [1, 1, 1];
+		
+		window.requestAnimFrame = (function(callback) {
+		  	return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        	function(callback) {
+          		window.setTimeout(callback, 1000 / 60);
+		  	};
+		})();
+		document.onmousemove = function(e) {
+			curve.ex = e.offsetX;
+			curve.ey = e.offsetY;
+		}
+		function animate(canvas, context, startTime) {
+        	// update
+        	var time = (new Date()).getTime() - startTime;        	
+        	curve.c1x = Math.floor(Math.sin(time/200) * (w/4)) + (w/2);
+        	curve.c1y = Math.floor(Math.cos(time/200) * (w/4)) + (h/2);
+        	curve.c2x = Math.floor(Math.sin(time/500) * (w/2)*(-1)) + (w/2);
+        	curve.c2y = Math.floor(Math.cos(time/500) * (w/2)*(-1)) + (h/2);
+			
+			for (var i = 0; i < 3; i++) {
+			    var add = Math.floor(Math.random() * 10);
+			    if (sign[i] === 1 && (add + rgb[i]) > 255){
+			    	sign[i] = -1;
+			    	rgb[i] = rgb[i] - add;
+			    } else if (sign[i] === -1 && (rgb[i] - add) < 0){
+			    	sign[i] = 1;
+			    	rgb[i] = rgb[i] + add;
+			    } else {
+			    	rgb[i] = rgb[i] + (sign[i] * add);
+			    }
+			}
+		
+        	// clear
+    	    ctx.save();
+			ctx.clearRect(0,0,c.width,c.height);
+			ctx.strokeStyle = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ");";
+			ctx.lineWidth = 15;			
+			bezier(curve.c1x, curve.c1y, curve.c2x, curve.c2y, curve.ex, curve.ey);
+			bezier(curve.c2x, curve.c2y, curve.c1x, curve.c1y, curve.ex, curve.ey);
+			bezier((-1)*curve.c1x + w, (-1)*curve.c1y + h, (-1)*curve.c2x + w, (-1)*curve.c2y + h, curve.ex, curve.ey);
+			bezier((-1)*curve.c2x + w, (-1)*curve.c2y + h, (-1)*curve.c1x + w, (-1)*curve.c1y + h, curve.ex, curve.ey);
+			ctx.restore();			
+        	// request new frame
+        	requestAnimFrame(function() {
+			animate(canvas, context, startTime);
+		  });
+		}
+		function bezier(a, b, c, d, e, f){
+			ctx.beginPath();
+			ctx.moveTo((w/2),(h/2));
+			ctx.bezierCurveTo(a, b, c, d, e, f);
+			ctx.stroke();				
+		}
+		// wait one second before starting animation
+		setTimeout(function() {
+    	    var startTime = (new Date()).getTime();
+			animate(c, ctx, startTime);
+		}, 1000);
+</script>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-44862606-1', 'pnbloem.com');
+	ga('send', 'pageview');
+</script>
+</body>
+</html>
