@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width; 
+    initial-scale=1; maximum-scale=1; user-scalable=0;"/>
 	<title>100 Lines - 013</title>	
 	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
 	<link href="css/100lines.css" rel="stylesheet" type="text/css">
@@ -32,13 +34,17 @@
 			pts[i] = { x:(30 * (i % countX)), y: (30 * (Math.floor(i / countX))) };
 		}		
 		function drawLines(e) {
+                        var x = 0, y = 0;
+                        if (e.hasOwnProperty("offsetX")){ x = e.offsetX; y = e.offsetY; }
+                        else { x = e.touches[0].pageX; y = e.touches[0].pageY; }
+                        e.preventDefault();
 			ctx.clearRect(0,0,c.width,c.height);
 			for (var i = 0; i < pts.length; i++) {
 				var pt = pts[i];
 				ctx.save();
 				ctx.translate(pt.x, pt.y);
-				ctx.rotate(Math.atan((e.offsetY - pt.y)/(e.offsetX - pt.x)) + angle);
-				ctx.strokeStyle = "rgb(0,"+Math.floor((e.offsetY/h)*255)+","+Math.floor((e.offsetX/w)*255)+")";
+				ctx.rotate(Math.atan((y - pt.y)/(x - pt.x)) + angle);
+				ctx.strokeStyle = "rgb(0,"+Math.floor((y/h)*255)+","+Math.floor((x/w)*255)+")";
 				ctx.lineWidth = 3;
 				ctx.beginPath();
 				ctx.moveTo(0, 0);
@@ -50,9 +56,8 @@
 		function changeAngle() {
 			angle += Math.PI / 2;
 		}
-		document.onmousemove = function(e) {
-			drawLines(e);
-		}
+		c.addEventListener("touchmove", drawLines, false);
+		c.addEventListener("mousemove", drawLines);
 		document.onclick = changeAngle;
 </script>
 <script>

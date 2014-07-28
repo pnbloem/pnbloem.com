@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width; 
+    initial-scale=1; maximum-scale=1; user-scalable=0;"/>
 	<title>100 Lines - 008</title>	
 	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
 	<link href="css/100lines.css" rel="stylesheet" type="text/css">
@@ -28,14 +30,19 @@
 		c.width = window.innerWidth;
 		c.height = window.innerHeight;
 		function draw(e){
+                        var x = 0, y = 0;
+                        if (e.hasOwnProperty("offsetX")){ x = e.offsetX; y = e.offsetY; }
+                        else { x = e.touches[0].pageX; y = e.touches[0].pageY; }
+                        e.preventDefault();
 			ctx.beginPath();
 			ctx.moveTo(x1, y1);
-			ctx.quadraticCurveTo(e.offsetX, e.offsetY, x2, y2);
+			ctx.quadraticCurveTo(x, y, x2, y2);
+                        ctx.lineWidth = 2;
 			ctx.stroke();
-		}		
-		document.onmousemove = function(e) {
-			draw(e);
-		}
+		}	
+                c.addEventListener("mousemove", draw);	
+                c.addEventListener("touchmove", draw, false);	
+		
 		document.onclick = function() {
 			ctx.clearRect(0, 0, c.width, c.height);
 		}

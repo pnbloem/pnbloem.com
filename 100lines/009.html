@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width; 
+    initial-scale=1; maximum-scale=1; user-scalable=0;"/>
 	<title>100 Lines - 009</title>
 	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
 	<link href="css/100lines.css" rel="stylesheet" type="text/css">
@@ -30,18 +32,22 @@
 		c.height = y;
 		var r = 0, g = 0, b = 0;
 		function draw(e){
+                        var cx = 0, cy = 0;
+                        if (e.hasOwnProperty("offsetX")){ cx = e.offsetX; cy = e.offsetY; }
+                        else { cx = e.touches[0].pageX; cy = e.touches[0].pageY; }
+                        e.preventDefault();
 			ctx.beginPath();
 			ctx.moveTo(x1, y1);
-			ctx.quadraticCurveTo(e.offsetX, e.offsetY, x2, y2);
-			r = Math.floor((e.offsetX / x) * 255);
-			g = Math.floor((e.offsetY / y) * 255);
+			ctx.quadraticCurveTo(cx, cy, x2, y2);
+			r = Math.floor((cx / x) * 255);
+			g = Math.floor((cy / y) * 255);
 			b = (b + 1) % 255;
+                        ctx.lineWidth = 3;
 			ctx.strokeStyle = 'rgba(' + r + ',' + g + ','+b+',1)';
 			ctx.stroke();
-		}		
-		document.onmousemove = function(e) {
-			draw(e);
-		}
+		}	
+	        c.addEventListener("mousemove", draw);
+                c.addEventListener("touchmove", draw, false);
 		document.onclick = function() {
 			ctx.clearRect(0, 0, c.width, c.height);
 		}

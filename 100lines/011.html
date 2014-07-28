@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width; 
+    initial-scale=1; maximum-scale=1; user-scalable=0;"/>
 	<title>100 Lines - 011</title>
 	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
 	<link href="css/100lines.css" rel="stylesheet" type="text/css">
@@ -54,9 +56,13 @@
 			window.setTimeout(animate, 100);
 		}
 		animate();
-		document.onmousemove = function(e){
-			mouseY = e.offsetY;
-			mouseX = e.offsetX;
+
+                c.addEventListener("mousemove", setCoords);	
+                c.addEventListener("touchmove", setCoords, false);	
+		function setCoords(e){
+                        if (e.hasOwnProperty("offsetX")){ mouseX = e.offsetX; mouseY = e.offsetY; }
+                        else { mouseX = e.touches[0].pageX; mouseY = e.touches[0].pageY; }
+                        e.preventDefault();
 		};
 		
 	</script>
