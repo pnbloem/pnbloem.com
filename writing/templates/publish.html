@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>pnbloem -- Publish</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:200,700" rel="stylesheet" type="text/css">
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <script type='text/javascript' src='../../js/jquery-2.1.0.min.js'>
+</script>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="title">
+        <a href='/writing'>Home</a>
+    </div>
+
+    <div class="content">
+        <p></p>
+        <form onsubmit="return validate()" action="#" method="post">
+	        First Name: <input type="text" name="firstname" id="txt-firstname"/><br/><br/>
+	        Last Name: <input type="text" name="lastname" id="txt-lastname"/><br/><br/>
+	        Date Written: <input type="date" name="date" value="{{ date }}" id="date-written"/><br/><br/>
+			Title: <input type="text" name="title" id="txt-title"/>
+            <select name="category">
+	            	{% for category in categories %}
+					<option value="{{ category.id }}">
+                    {{ category.name }}
+					</option>
+					{% endfor %}
+            </select> <br/><br/>
+            Public:<input type="checkbox" name="public"></input>
+            <br/><br/>
+            <textarea class="txt-publish" id="poem-text" name="poem"></textarea>
+            <br/>
+            <input type="submit" />
+        </form>
+        <p>
+    </div><script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-44862606-1', 'pnbloem.com');
+        ga('send', 'pageview');
+    </script><script type="text/javascript">
+    $(function(){
+            
+    });
+    
+    function validate(){
+	    if ($("#txt-firstname").val() !== "" && $("#txt-lastname").val() !== "" && $("#txt-title").val() !== "" && $("#poem-text").val() !== "") {
+		    return true;
+	    }
+	    return false;
+    }
+    </script>
+</body>
+</html>

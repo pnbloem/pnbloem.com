@@ -33,7 +33,7 @@
 		var r = 0, g = 0, b = 0;
 		function draw(e){
                         var cx = 0, cy = 0;
-                        if (e.hasOwnProperty("offsetX")){ cx = e.offsetX; cy = e.offsetY; }
+                        if (e.offsetX){ cx = e.offsetX; cy = e.offsetY; }
                         else { cx = e.touches[0].pageX; cy = e.touches[0].pageY; }
                         e.preventDefault();
 			ctx.beginPath();

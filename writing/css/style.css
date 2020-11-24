@@ -1,0 +1,77 @@
+html, body {
+/*
+	height:100%;
+	width:100%;
+*/
+	padding:0;
+	margin:0;
+	font-family:Raleway;
+/*
+	background-image: linear-gradient(left top, rgb(11,158,80) 0%, rgb(14,53,158) 100%) !important;
+	background-image: -o-linear-gradient(left top, rgb(11,158,80) 0%, rgb(14,53,158) 100%) !important;
+	background-image: -moz-linear-gradient(left top, rgb(11,158,80) 0%, rgb(14,53,158) 100%) !important;
+	background-image: -webkit-linear-gradient(left top, rgb(11,158,80) 0%, rgb(14,53,158) 100%) !important;
+	background-image: -ms-linear-gradient(left top, rgb(11,158,80) 0%, rgb(14,53,158) 100%) !important;
+	background-image: -webkit-gradient(linear,left top,right bottom,color-stop(0, rgb(11,158,80)),color-stop(1, rgb(14,53,158))) !important;
+*/
+	background-color:rgb(12,110,119);
+	color:white;
+}
+body {
+	background-attachment: fixed;
+	background-repeat:no-repeat;
+}
+div.title
+{
+	margin:20px;
+	text-decoration:none;
+	text-align:center;
+}
+div.content
+{
+	margin:20px;
+	text-decoration:none;
+	text-align:center; 
+	line-height:1.4em;
+}
+a
+{
+	color:white;
+}
+div.free
+{
+	margin:0 auto 0 auto; 
+	display:inline-block; 
+	text-align:left;
+}
+div.write-link
+{
+	float:left;
+	margin:15px;
+	width:140px;
+	height:100px;
+	border:1px solid rgba(0, 0, 0, 0.2);
+}
+a.poem-link
+{
+	text-align:left;
+}
+div.link-title
+{
+	padding:5px;
+	background-color:rgba(0, 0, 0, 0.2);
+	font-weight:bold;
+}
+div.link-info
+{
+	padding:5px;
+	font-size:.8em;
+	color: rgba(255, 255, 255, 0.8);
+}
+div.group-heading
+{
+	text-align:left;
+	margin-top:10px;
+	font-size:1.3em;
+	font-weight:bold;
+}

@@ -43,7 +43,8 @@ function getAllTimeAverage(){
 		url: "api/api.php",
 		data: {
 			method: 'getAverage',
-			num_days: 0
+			num_days: 0,
+                        userid: 1
 		},
 		datatype: 'json',
 		success: function(data){
@@ -62,7 +63,8 @@ function getThreeMonthAverage(){
 		url: "api/api.php",
 		data: {
 			method: 'getAverage',
-			num_days: 90
+			num_days: 90,
+                        userid: 1
 		},
 		datatype: 'json',
 		success: function(data){
@@ -81,7 +83,8 @@ function getOneMonthAverage(){
 		url: "api/api.php",
 		data: {
 			method: 'getAverage',
-			num_days: 30
+			num_days: 30,
+                        userid: 1
 		},
 		datatype: 'json',
 		success: function(data){
@@ -100,7 +103,8 @@ function getOneWeekAverage(){
 		url: "api/api.php",
 		data: {
 			method: 'getAverage',
-			num_days: 7
+			num_days: 7,
+                        userid: 1
 		},
 		datatype: 'json',
 		success: function(data){

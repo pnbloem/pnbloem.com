@@ -60,7 +60,7 @@
                 c.addEventListener("mousemove", setCoords);	
                 c.addEventListener("touchmove", setCoords, false);	
 		function setCoords(e){
-                        if (e.hasOwnProperty("offsetX")){ mouseX = e.offsetX; mouseY = e.offsetY; }
+                        if (e.offsetX){ mouseX = e.offsetX; mouseY = e.offsetY; }
                         else { mouseX = e.touches[0].pageX; mouseY = e.touches[0].pageY; }
                         e.preventDefault();
 		};

@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>100 Lines - 017</title>	
+	<link rel="shortcut icon" type="image/png" href="http://pnbloem.com/100lines/favicon.ico">
+	<link href="css/100lines.css" rel="stylesheet" type="text/css">
+	<!--
+		Copyright - 2014: Paul Bloem (pnbloem@gmail.com)
+	-->
+	<style>
+		* { margin: 0; padding: 0;}
+		body, html 
+		{ 
+			height:100%; 
+			background-color:#000;
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id='return-link'><a href='index.html'>gallery</a></div>
+	<canvas id='c'></canvas>
+<script>
+	var x;
+	var c = document.getElementById("c"), pts = [], ctx = c.getContext("2d"), w = window.innerWidth, h = window.innerHeight;
+	c.width = w;
+	c.height = h;
+	var timeouts = [], pixelSize = 50;
+    var alphabet = {
+	    a: [[0, 1, 1, 1, 1], [1, 0, 1, 0, 0], [0, 1, 1, 1, 1]],
+	    b: [[1, 1, 1, 1, 1], [1, 0, 1, 0, 1], [1, 1, 1, 1, 1]],
+	    l: [[1, 1, 1, 1, 1], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1]],
+	    p: [[1, 1, 1, 1, 1], [1, 0, 1, 0, 0], [1, 1, 1, 0, 0]],
+	    u: [[1, 1, 1, 1, 1], [0, 0, 0, 0, 1], [1, 1, 1, 1, 1]]
+    };
+    function drawLetter(letter, startLeft, startTop){
+		var pixels = alphabet[letter];
+		ctx.clearRect(0, 0, w, h);
+		for (var j = 0; j < pixels.length; j++){
+			var col = pixels[j];
+			for (var pixel = 0; pixel < pixels[j].length; pixel++){									if(pixels[j][pixel] !== 0){
+					var x1 = startLeft + (pixelSize * j);
+					var y1 = startTop + (pixelSize * pixel);
+					var x2 = pixelSize;
+					var y2 = pixelSize;
+					drawRect(x1, y1, x2, y2, "rgb(0, 255, 0)");
+				}
+			}
+		}
+	}	
+	function clearRect(){
+		ctx.clearRect(0, 0, w, h);
+	}	
+    function drawRect(x1, y1, x2, y2, color){
+	    ctx.beginPath();
+		ctx.rect(x1, y1, x2, y2);
+		ctx.fillStyle = color;
+		ctx.strokeStyle = color;
+		ctx.stroke();
+		ctx.fill();
+		ctx.closePath();
+    }
+    function drawString(str){
+	  	var letters = str.split("");  
+	  	var spaces = 0;
+	  	var i;
+	  	//alert(letters);
+	  	for (i = 0; i < letters.length; i++){
+		  	if(letters[i] === " "){
+			  	spaces++;
+		  	} else {
+			  	timeouts[timeouts.length] = setTimeout(drawLetterFunc(letters[i], i, spaces), (1000 * (i - spaces))); 
+			}	  	
+	  	}
+	  	timeouts[timeouts.length] = setTimeout(function(){clearRect();}, (1000 * (i - spaces)));
+	  	timeouts[timeouts.length] = setTimeout(function(){drawString(str);}, (1000 * (i - spaces + 2)));
+    }
+    function drawLetterFunc(letter, i, spaces) {
+	    return function(){
+		    drawLetter(letter, (w / 2) - (pixelSize * 3 / 2), (h / 2) - (pixelSize * 5 / 2));
+	    }
+    }
+    drawString("paul");
+</script>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-44862606-1', 'pnbloem.com');
+	ga('send', 'pageview');
+</script>
+</body>
+</html>

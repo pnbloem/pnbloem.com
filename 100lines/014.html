@@ -38,15 +38,15 @@
 		  	};
 		})();
 		c.addEventListener("touchmove", setCoords, false);
-                c.addEventListener("mousemove", setCoords, false);
-                function setCoords(e){
-                        e.preventDefault();
-                        var x = 0, y = 0;
-                        if (e.hasOwnProperty("offsetX")){ x = e.offsetX; y = e.offsetY; }
-                        else { x = e.touches[0].pageX; y = e.touches[0].pageY; }
+        c.addEventListener("mousemove", setCoords, false);
+        function setCoords(e){
+        	e.preventDefault();
+        	var x = 0, y = 0;
+            if (e.offsetX){ x = e.offsetX; y = e.offsetY; }
+            else { x = e.touches[0].pageX; y = e.touches[0].pageY; }
 			curve.ex = x;
 			curve.ey = y;                       
-                };
+        };
 		function animate(canvas, context, startTime) {
         	// update
         	var time = (new Date()).getTime() - startTime;        	

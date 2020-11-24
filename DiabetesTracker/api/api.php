@@ -11,8 +11,10 @@
 					&& isset($_POST['insulin_amt']) && isset($_SESSION['USERID'])){
 						return submitMeasurement($_POST['type'], $_POST['time'],
 							$_POST['level'], $_POST['insulin_type'], $_POST['insulin_amt'], $_SESSION['USERID'], $userLoggedIn);
-				} else
+				} else {
 					echo 'Some fields not set.';
+					return;
+				}
 					
 			case 'editMeasurement':
 				if(isset($_POST['type']) && isset($_POST['time']) 
@@ -20,27 +22,35 @@
 					&& isset($_POST['insulin_amt']) && isset($_POST['meas_id']) && isset($_SESSION['USERID'])){
 						return editMeasurement($_POST['type'], $_POST['time'],
 							$_POST['level'], $_POST['insulin_type'], $_POST['insulin_amt'], $_POST['meas_id'], $_SESSION['USERID']);
-				} else
+				} else {
 					echo 'Some fields not set.';
-					
+					return;
+				}
+
 			case 'getMeasurements':
 				if(isset($_POST['start']) && isset($_POST['limit']) && isset($_SESSION['USERID'])){
 					return getMeasurements($_POST['start'], $_POST['limit'], $_SESSION['USERID'], $userLoggedIn);
-				} else
-					echo 'Some fields are not set.';
-					
+				} else {
+					echo 'Some fields not set.';
+					return;
+				}
+				
 			case 'deleteMeasurement':
 				if(isset($_POST['meas_id']) && isset($_SESSION['USERID'])){
 					return deleteMeasurement($_POST['meas_id'], $_SESSION['USERID']);
-				} else 
-					echo 'Some fields are not set.';
-					
+				} else {
+					echo 'Some fields not set.';
+					return;
+				}
+
 			case 'getAverage':
 				if(isset($_POST['num_days'])){
 					return getAverageMeas($_POST['num_days']);
-				} else 
-					echo 'Some fields are not set.';	
-					
+				} else {
+					echo 'Some fields not set.';
+					return;
+				}
+
 			default:
 				echo "-1";
 		}

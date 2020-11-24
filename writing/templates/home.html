@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>pnbloem -- Writing</title>
+	<link href="http://fonts.googleapis.com/css?family=Raleway:200,700" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-44862606-1', 'pnbloem.com');
+		ga('send', 'pageview');
+	</script>
+</head>
+<body>
+	<div class="title"><h1>Naming things is the hardest part.</h1></div>
+	<div class="content">
+		<div style="clear:both;"></div>
+		<div class="group-heading">Haikus</div>
+		{% for poem in poems %}
+		{% if poem.category == 3 %}
+		<a href="/writing/poem/{{poem.id}}?loc={{loc}}" class='poem-link'>
+			<div class="write-link">
+				<div class='link-title'>{{poem.title}}</div>
+				<div class='link-info'>
+					{{poem.firstname}} {{poem.lastname}}
+				<br/>
+				{{poem.date}}
+				</div>
+			</div>
+		</a>
+		{% endif %}
+		{% endfor %}
+		<div style="clear:both;"></div>
+		<div class="group-heading">Limericks</div>
+		{% for poem in poems %}
+		{% if poem.category == 4 %}
+		<a href="/writing/poem/{{poem.id}}?loc={{loc}}" class='poem-link'>
+			<div class="write-link">
+				<div class='link-title'>{{poem.title}}</div>
+				<div class='link-info'>
+					{{poem.firstname}} {{poem.lastname}}
+				<br/>
+				{{poem.date}}
+				</div>
+			</div>
+		</a>
+		{% endif %}
+		{% endfor %}
+		<div style="clear:both;"></div>
+		<div class="group-heading">Freeverse</div>
+		{% for poem in poems %}
+		{% if poem.category == 2 %}
+		<a href="/writing/poem/{{poem.id}}?loc={{loc}}" class='poem-link'>
+			<div class="write-link">
+				<div class='link-title'>{{poem.title}}</div>
+				<div class='link-info'>
+					{{poem.firstname}} {{poem.lastname}}
+				<br/>
+				{{poem.date}}
+				</div>
+			</div>
+		</a>
+		{% endif %}
+		{% endfor %}
+		<div style="clear:both;"></div>
+		<div class="group-heading">Sonnets</div>
+		{% for poem in poems %}
+		{% if poem.category == 5 %}
+		<a href="/writing/poem/{{poem.id}}?loc={{loc}}" class='poem-link'>
+			<div class="write-link">
+				<div class='link-title'>{{poem.title}}</div>
+				<div class='link-info'>
+					{{poem.firstname}} {{poem.lastname}}
+				<br/>
+				{{poem.date}}
+				</div>
+			</div>
+		</a>
+		{% endif %}
+		{% endfor %}
+	</div>
+</body>
+</html>

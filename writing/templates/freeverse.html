@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>pnbloem -- {{ poem.title }}</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<link href="http://fonts.googleapis.com/css?family=Raleway:200,700" rel="stylesheet" type="text/css">
+	<link href="../css/style.css" rel="stylesheet" type="text/css">
+	<script type='text/javascript' src='../../js/jquery-2.1.0.min.js'></script>
+<meta charset="utf-8">
+</head>
+<body>
+<div class="title">
+<h1>{{ poem.title }}</h1>
+<h4>{{ poem.date }}</h4>
+{% if prev != null %}
+<a href='/writing/poem/{{ prev.id }}?loc={{ loc }}'>Previous</a> - 
+{% endif %}
+<a href='/writing?loc={{ loc }}'>All Writing</a>
+{% if next != null %}
+ - <a href='/writing/poem/{{ next.id }}?loc={{ loc }}'>Next</a>
+{% endif %}
+</div>
+<div class="content">
+<div class="free">
+<p>
+	{% for line in poem.lines %}
+	{{ line.text }}<br/>
+	{% endfor %}
+</p>
+</div>
+</div>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-44862606-1', 'pnbloem.com');
+		ga('send', 'pageview');
+	</script>
+	<script>
+		$(function(){
+
+		})
+	</script>
+</body>
+</html>

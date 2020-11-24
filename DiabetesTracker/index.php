@@ -67,15 +67,12 @@
 		    	//echo '<div class="user">Logged in as: '.$_SESSION['UNAME'].'</div>';
 		    	//echo '<div class="login"><a href="logout.php">Logout</a></div>';
 		    	// After Successful Authentication
-		    }else{
-		    	//echo '<div class="login"><a href="login_process.php">Login With Gmail</a></div>';
-		    	echo '<a href="login_process.php"><paper-button raisedButton label="Login"></paper-button></a>';
-		    	// login page link
-		 	}
+		    }
 			?>
 		</core-toolbar>
 				
 		<div id="trackerWrap">
+			<?php if($userLoggedIn): ?>
 			<stat-box week="<?php echo getAverage(7); ?>" month="<?php echo getAverage(30); ?>" threeMonth="<?php echo getAverage(90); ?>" allTime="<?php echo getAverage(0); ?>"></stat-box>
 			
 			<div id="chartWrap">
@@ -85,12 +82,13 @@
 			</div>
 			<div style="clear:both;"></div>
 			
-					<?php if($userLoggedIn){
-						echo '<paper-button raisedButton onClick="toggleDialog(\'dialog-new\');" label="Add Measurement" style="margin:10px 0 0 0;"></paper-button>';
-					}
-					?>
+			<paper-button raisedButton onClick="toggleDialog('dialog-new');" label="Add Measurement" style="margin:10px 0 0 0;">
+			</paper-button>					
 			<div id="measurements-list"></div>
 			<paper-fab id='moreRowsButton' icon="add" style="color:white; background-color:#03a9f4;"></paper-fab>
+			<?php else: ?>
+				<a href="login_process.php"><paper-button raisedButton label="Login"></paper-button></a>
+			<?php endif; ?>
 		</div>
 		
 			<?php if($userLoggedIn): ?>
